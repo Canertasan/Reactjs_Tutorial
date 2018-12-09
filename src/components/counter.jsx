@@ -5,19 +5,18 @@ class Counter extends Component {
     count: 0
   };
 
-  handleIncrement() {
-    console.log("Increment Clicked");
-    {
-      /*you cannot reach state in that method, next topic*/
-    }
-  }
+  handleIncrement = product => {
+    // then you dont need to bind sth. On constructor.
+    console.log(product);
+    this.setState({ count: this.state.count + 1 });
+  };
 
   render() {
     return (
       <React.Fragment>
         <span className={this.getBadgeClasses()}>{this.formatCount()}</span>
         <button
-          onClick={this.handleIncrement}
+          onClick={() => this.handleIncrement({ id: 1 })}
           className="btn btn-secondary btn-sm"
         >
           Increment
@@ -32,7 +31,10 @@ class Counter extends Component {
     return classes;
   }
 
-  formatCount() {}
+  formatCount() {
+    const { count } = this.state;
+    return count === 0 ? "Zero" : count;
+  }
 }
 
 export default Counter;
